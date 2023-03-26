@@ -1,0 +1,13 @@
+[package]
+name = "calendar"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "cal"
+path = "src/main.rs"
+
+[dependencies]
+chrono = "0.4.24"
+colored = "2.0"
+bpaf = { version = "0.7", features = ["derive", "bright-color"] }
