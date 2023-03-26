@@ -2,6 +2,11 @@
 name = "calendar"
 version = "0.1.0"
 edition = "2021"
+license-file = "LICENSE"
+keywords = ["calendar", "cli"]
+description = "A simple calendar CLI written in Rust"
+repository = "https://github.com/7ijme/calendar.git"
+readme = "README.md"
 
 [[bin]]
 name = "cal"
