@@ -5,6 +5,9 @@ use colored::*;
 #[derive(Debug, Clone, Bpaf)]
 #[bpaf(options)]
 struct Args {
+    #[bpaf(short('b'), long("before-christ"))]
+    /// Whether the year is before Christ.
+    before_christ: bool,
     #[bpaf(positional("month"), optional)]
     /// The month to print the calendar for.
     month: Option<u32>,
@@ -19,6 +22,8 @@ fn main() {
 
     let month = args.month.unwrap_or_else(|| Local::now().month());
     let year = args.year.unwrap_or_else(|| Local::now().year());
+
+    let year = if args.before_christ { -year } else { year };
 
     print_calendar(month, year);
 }
@@ -40,7 +45,6 @@ fn print_calendar(month: u32, year: i32) {
         "December",
     ];
 
-    // let now: DateTime<Local> = Local::now();
     let now = Local::now()
         .with_month(month)
         .expect("Please give me a valid month.")
@@ -50,7 +54,7 @@ fn print_calendar(month: u32, year: i32) {
     let year = now.year();
 
     // Print the month and year in the center of the line
-    let amount_of_padding = (20 - months[month as usize - 1].len() - 4) / 2;
+    let amount_of_padding = (20 - months[month as usize - 1].len() - year.to_string().len()) / 2;
     println!(
         "{}",
         format!(
